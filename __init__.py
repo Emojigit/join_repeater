@@ -20,7 +20,9 @@ def setup(bot,storage):
         last_time = storage.get("repeat_lasttime_" + str(chatid),0)
         storage.set("repeat_lastword_" + str(chatid),text,autosave=False)
         storage.set("repeat_lasttime_" + str(chatid),now,autosave=False)
-        if not(not last_word or now - last_time > 86400 or last_word != text):
+        last_success_repeat = last_time = storage.get("repeat_lastrepeat_" + str(chatid))
+        if not(not last_word or now - last_time > 86400 or last_word != text or text == last_success_repeat):
+            storage.set("repeat_lastrepeat_" + str(chatid),text,autosave=False)
             await event.message.forward_to(event.chat)
         storage.save()
 
