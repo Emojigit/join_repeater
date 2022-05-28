@@ -12,7 +12,7 @@ from time import time
 def setup(bot,storage):
     @bot.on(events.NewMessage())
     async def join_repeat(event):
-        text = event.message.text or event.message.caption
+        text = event.message.text
         chatid = event.chat_id
         if not text or text[0] == "/": return
         last_word = storage.get("repeat_lastword_" + str(chatid))
